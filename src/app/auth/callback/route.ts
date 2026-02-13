@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -14,10 +14,9 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(new URL(redirectPath, request.url));
+      redirect(redirectPath);
     }
   }
 
-  // Redirect to login with error on failure
-  return NextResponse.redirect(new URL("/login", request.url));
+  redirect("/login");
 }

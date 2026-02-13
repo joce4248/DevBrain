@@ -10,7 +10,7 @@ export function Sidebar() {
     <aside className="hidden w-64 shrink-0 border-r border-border bg-sidebar md:flex md:flex-col">
       <div className="flex h-14 items-center border-b border-border px-4">
         <h1 className="text-lg font-bold tracking-tight">
-          <span className="text-primary">Dev</span>Mind
+          <span className="text-primary">Dev</span>Brain
         </h1>
       </div>
       <ScrollArea className="flex-1">

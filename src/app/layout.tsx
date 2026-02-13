@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevMind - Snippet Manager",
+  title: "DevBrain - Snippet Manager",
   description: "A modern snippet manager for developers",
 };
 

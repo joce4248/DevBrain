@@ -1,5 +1,5 @@
 -- ============================================
--- DevMind: Supabase Auth Migration
+-- DevBrain: Supabase Auth Migration
 -- ============================================
 -- Run this SQL in your Supabase Dashboard (SQL Editor)
 -- BEFORE using the app with authentication enabled.
