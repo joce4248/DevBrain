@@ -18,7 +18,13 @@
       "Bash(npx shadcn@latest add:*)",
       "Bash(node -e:*)",
       "Bash(find:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(ss:*)",
+      "Bash(kill:*)",
+      "WebFetch(domain:supabase.com)",
+      "Bash(npx --yes create-next-app@latest:*)"
     ]
   }
 }

@@ -25,9 +25,12 @@ export function useCreateTag() {
 
   return useMutation({
     mutationFn: async ({ name, color }: { name: string; color: string }) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const { data, error } = await supabase
         .from("tags")
-        .insert({ name, color })
+        .insert({ name, color, user_id: user.id })
         .select()
         .single();
       if (error) throw error;

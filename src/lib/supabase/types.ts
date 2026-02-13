@@ -12,6 +12,7 @@ export type Database = {
           deleted_at: string | null;
           created_at: string;
           updated_at: string;
+          user_id: string;
         };
         Insert: {
           id?: string;
@@ -23,6 +24,7 @@ export type Database = {
           deleted_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          user_id: string;
         };
         Update: {
           id?: string;
@@ -34,6 +36,7 @@ export type Database = {
           deleted_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          user_id?: string;
         };
         Relationships: [];
       };
@@ -42,16 +45,19 @@ export type Database = {
           id: string;
           name: string;
           color: string;
+          user_id: string;
         };
         Insert: {
           id?: string;
           name: string;
           color?: string;
+          user_id: string;
         };
         Update: {
           id?: string;
           name?: string;
           color?: string;
+          user_id?: string;
         };
         Relationships: [];
       };
