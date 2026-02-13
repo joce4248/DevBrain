@@ -15,7 +15,7 @@ export async function login(formData: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: "Invalid email or password." };
   }
 
   redirect("/");
@@ -27,13 +27,17 @@ export async function signup(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  if (!email || !password || password.length < 6) {
+    return { error: "Email and password (min 6 characters) are required." };
+  }
+
   const { error } = await supabase.auth.signUp({
     email,
     password,
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: "Unable to create account. Please try again." };
   }
 
   return { success: "Check your email to confirm your account." };
@@ -42,15 +46,20 @@ export async function signup(formData: FormData) {
 export async function signInWithOAuth(provider: "github" | "google") {
   const supabase = await createServerSupabaseClient();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!siteUrl && process.env.NODE_ENV === "production") {
+    return { error: "Server configuration error." };
+  }
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/auth/callback`,
+      redirectTo: `${siteUrl ?? "http://localhost:3000"}/auth/callback`,
     },
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: "Unable to sign in with this provider." };
   }
 
   if (data.url) {

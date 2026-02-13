@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { LogOut, User } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -14,6 +15,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 export function UserMenu() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const supabase = createClient();
@@ -21,6 +23,11 @@ export function UserMenu() {
       setUser(data.user);
     });
   }, []);
+
+  async function handleLogout() {
+    queryClient.clear();
+    await logout();
+  }
 
   if (!user) return null;
 
@@ -41,7 +48,7 @@ export function UserMenu() {
           <User className="h-4 w-4 text-muted-foreground" />
           <span className="truncate text-sm">{email}</span>
         </div>
-        <form action={logout}>
+        <form action={handleLogout}>
           <button
             type="submit"
             className="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"

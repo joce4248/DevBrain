@@ -37,9 +37,13 @@ async function fetchSnippetsWithTags(
   }
 
   if (filters.search) {
-    query = query.or(
-      `title.ilike.%${filters.search}%,content.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
-    );
+    // Sanitize search input: escape PostgREST special characters
+    const sanitized = filters.search.replace(/[%_\\,.()"']/g, "");
+    if (sanitized) {
+      query = query.or(
+        `title.ilike.%${sanitized}%,content.ilike.%${sanitized}%,description.ilike.%${sanitized}%`
+      );
+    }
   }
 
   query = query.order("updated_at", { ascending: false });
