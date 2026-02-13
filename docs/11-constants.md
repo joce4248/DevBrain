@@ -145,6 +145,43 @@ export const TAG_COLORS = [
 
 La couleur par defaut lors de la creation d'un tag est `TAG_COLORS[0]` (`"#6366f1"`, indigo).
 
+## Autocompletion Monaco par langage
+
+Fichiers : `src/lib/monaco-completions/`
+
+Le systeme d'autocompletion utilise `monaco.languages.registerCompletionItemProvider()` pour enregistrer des providers de completion personnalises pour les langages qui n'ont pas d'autocompletion native dans Monaco.
+
+### Point d'entree : `src/lib/monaco-completions/index.ts`
+
+Exporte `registerLanguageCompletions(monaco: Monaco)` qui enregistre tous les providers. Un flag module-level `registered` empeche les appels multiples.
+
+### PHP : `src/lib/monaco-completions/php.ts`
+
+Exporte `registerPhpCompletions(monaco: Monaco)` qui enregistre un provider de completion pour le langage `"php"`.
+
+Contient ~180 fonctions built-in PHP organisees par categorie :
+- **String** (30+) : `strlen`, `strpos`, `str_replace`, `substr`, `explode`, `implode`, `trim`, `htmlspecialchars`, `sprintf`, etc.
+- **Array** (35+) : `array_push`, `array_pop`, `array_map`, `array_filter`, `array_merge`, `count`, `in_array`, `sort`, etc.
+- **Math** (16) : `abs`, `ceil`, `floor`, `round`, `max`, `min`, `rand`, `random_int`, etc.
+- **Date/Time** (11) : `date`, `time`, `strtotime`, `date_create`, `date_format`, etc.
+- **File** (25) : `fopen`, `fclose`, `file_get_contents`, `file_put_contents`, `file_exists`, `mkdir`, etc.
+- **Type** (19) : `isset`, `empty`, `is_array`, `is_string`, `intval`, `strval`, `gettype`, etc.
+- **JSON** (4) : `json_encode`, `json_decode`, `json_last_error`, `json_last_error_msg`
+- **Regex** (6) : `preg_match`, `preg_match_all`, `preg_replace`, `preg_split`, etc.
+- **Output** (6) : `echo`, `print`, `var_dump`, `print_r`, `header`, `http_response_code`
+- **Misc** (14) : `die`, `exit`, `sleep`, `class_exists`, `password_hash`, `password_verify`, etc.
+
+Chaque entree contient :
+```typescript
+{
+  label: string;       // Nom de la fonction (ex: "strlen")
+  detail: string;      // Signature simplifiee (ex: "strlen(string $string): int")
+  documentation: string; // Description courte (ex: "Returns the length of a string.")
+}
+```
+
+Le provider peut etre etendu pour d'autres langages en ajoutant un fichier par langage et en l'enregistrant dans `index.ts`.
+
 ## Utilitaire `cn()`
 
 Fichier : `src/lib/utils.ts`

@@ -175,6 +175,7 @@ Fichier : `src/components/snippets/snippet-code-editor.tsx`
 - Loading fallback : `<Skeleton className="h-[400px] w-full rounded-md" />`
 - Theme Monaco : `theme === "dark" ? "vs-dark" : "vs"`
 - Langage : mappe via `MONACO_LANGUAGE_MAP` (fallback: `"plaintext"`)
+- **Autocompletion** : utilise le callback `beforeMount` pour enregistrer les providers de completion personnalises via `registerLanguageCompletions(monaco)` depuis `src/lib/monaco-completions/index.ts`. Actuellement, seule l'autocompletion PHP est implementee (~180 fonctions built-in). Un flag module-level (`registered`) empeche l'enregistrement en double.
 - **Options Monaco** :
   ```javascript
   {

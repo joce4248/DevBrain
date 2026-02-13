@@ -116,6 +116,7 @@ Tous ces composants viennent de la CLI shadcn avec le style **new-york** et la b
 - **Props** : `{ value: string; onChange: (value: string) => void; language: string }`
 - **Hooks** : `useTheme()`
 - **Import dynamique** : Monaco Editor (`ssr: false`)
+- **beforeMount** : appelle `registerLanguageCompletions(monaco)` pour enregistrer les providers d'autocompletion (PHP)
 
 ### `snippet-meta-form.tsx`
 

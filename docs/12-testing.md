@@ -124,6 +124,16 @@ src/
 
 ## Inventaire des tests
 
+### `src/lib/monaco-completions/__tests__/php.test.ts` (5 tests)
+
+| Test | Description |
+|---|---|
+| registers a completion provider for php | Verifie que `registerCompletionItemProvider` est appele avec `"php"` |
+| provides suggestions with correct structure | Verifie que le provider retourne plus de 100 suggestions |
+| each suggestion has required fields | Verifie que chaque suggestion a `label`, `kind`, `insertText`, `detail`, `documentation`, `range` |
+| includes common PHP functions | Verifie la presence de fonctions cles (`strlen`, `array_map`, `json_encode`, etc.) |
+| has no duplicate labels | Verifie l'absence de doublons dans les labels |
+
 ### `src/lib/__tests__/utils.test.ts` (4 tests)
 
 | Test | Description |

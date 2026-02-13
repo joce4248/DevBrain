@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MONACO_LANGUAGE_MAP } from "@/lib/constants";
+import { registerLanguageCompletions } from "@/lib/monaco-completions";
 
 const Editor = dynamic(() => import("@monaco-editor/react").then((mod) => mod.default), {
   ssr: false,
@@ -27,6 +28,7 @@ export function SnippetCodeEditor({
     <div className="overflow-hidden rounded-md border border-border">
       <Editor
         height="400px"
+        beforeMount={registerLanguageCompletions}
         language={MONACO_LANGUAGE_MAP[language] || "plaintext"}
         value={value}
         onChange={(val) => onChange(val || "")}

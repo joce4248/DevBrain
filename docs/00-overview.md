@@ -150,6 +150,11 @@ src/
     constants.ts                        # Langages, couleurs tags, mapping Monaco
     __tests__/
       utils.test.ts                    # Tests cn() (4 tests)
+    monaco-completions/
+      index.ts                          # Point d'entree : registerLanguageCompletions()
+      php.ts                            # Provider autocompletion PHP (~180 fonctions built-in)
+      __tests__/
+        php.test.ts                    # Tests autocompletion PHP (5 tests)
     supabase/
       client.ts                         # Client Supabase navigateur
       server.ts                         # Client Supabase serveur
