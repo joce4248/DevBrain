@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(node --version:*)",
+      "Bash(npm:*)",
+      "Bash(export:*)",
+      "Bash([ -s \"$NVM_DIR/nvm.sh\" ])",
+      "Bash(. \"$NVM_DIR/nvm.sh\")",
+      "Bash(curl:*)",
+      "Bash(sudo bash:*)",
+      "Bash(sudo apt-get install:*)",
+      "Bash(bash:*)",
+      "Bash(nvm install:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(node -e:*)",
+      "Bash(find:*)",
+      "Bash(git checkout:*)"
+    ]
+  }
+}
