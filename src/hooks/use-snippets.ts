@@ -145,12 +145,16 @@ export function useCreateSnippet() {
 
   return useMutation({
     mutationFn: async (input: CreateSnippetInput): Promise<{ id: string }> => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const { tagIds, ...snippetData } = input;
       const insertData = {
         title: snippetData.title,
         content: snippetData.content,
         language: snippetData.language,
         description: snippetData.description ?? null,
+        user_id: user.id,
       };
       const { data, error } = await supabase
         .from("snippets")
