@@ -17,7 +17,7 @@ export function MobileSidebar() {
       <SheetContent side="left" className="w-64 p-0">
         <div className="flex h-14 items-center border-b border-border px-4">
           <h1 className="text-lg font-bold tracking-tight">
-            <span className="text-primary">Dev</span>Mind
+            <span className="text-primary">Dev</span>Brain
           </h1>
         </div>
         <ScrollArea className="h-[calc(100vh-3.5rem)]">

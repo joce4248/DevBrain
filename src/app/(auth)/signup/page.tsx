@@ -44,7 +44,7 @@ export default function SignupPage() {
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">
-          <span className="text-primary">Dev</span>Mind
+          <span className="text-primary">Dev</span>Brain
         </CardTitle>
         <CardDescription>Create a new account</CardDescription>
       </CardHeader>
