@@ -50,14 +50,19 @@ DevBrain est une application web full-stack qui permet aux developpeurs de stock
 | Technologie | Version | Role |
 |---|---|---|
 | `@tailwindcss/postcss` | ^4 | Integration PostCSS |
+| `@testing-library/jest-dom` | ^6.9.1 | Matchers DOM pour tests |
+| `@testing-library/react` | ^16.3.2 | Rendu hooks/composants pour tests |
+| `@testing-library/user-event` | ^14.6.1 | Simulation interactions utilisateur |
 | `@types/node` | ^20 | Types Node.js |
 | `@types/react` | ^19 | Types React |
 | `@types/react-dom` | ^19 | Types React DOM |
 | ESLint | ^9 | Linter |
 | `eslint-config-next` | 16.1.6 | Config ESLint Next.js |
+| jsdom | ^28.0.0 | Environnement navigateur simule pour tests |
 | shadcn CLI | ^3.8.4 | Generateur de composants |
 | tailwindcss | ^4 | Moteur CSS |
 | typescript | ^5 | Compilateur TypeScript |
+| Vitest | ^4.0.18 | Test runner unitaire |
 
 ## Scripts npm
 
@@ -66,7 +71,10 @@ DevBrain est une application web full-stack qui permet aux developpeurs de stock
   "dev": "next dev",
   "build": "next build",
   "start": "next start",
-  "lint": "eslint"
+  "lint": "eslint",
+  "test": "vitest run",
+  "test:watch": "vitest",
+  "test:coverage": "vitest run --coverage"
 }
 ```
 
@@ -126,19 +134,36 @@ src/
     use-keyboard-shortcuts.ts           # Raccourci Cmd+K
     use-debounce.ts                     # Hook debounce generique
     use-copy-clipboard.ts              # Hook copier dans le presse-papier
+    __tests__/
+      use-snippets.test.ts             # Tests hooks snippets (15 tests)
+      use-tags.test.ts                 # Tests hooks tags (6 tests)
+      use-debounce.test.ts             # Tests hook debounce (5 tests)
+      use-copy-clipboard.test.ts       # Tests hook clipboard (5 tests)
   stores/
     ui-store.ts                         # Store Zustand UI (filtres, sidebar, command menu)
     editor-store.ts                     # Store Zustand editeur (dirty, language)
+    __tests__/
+      ui-store.test.ts                 # Tests store UI (12 tests)
+      editor-store.test.ts            # Tests store editeur (4 tests)
   lib/
     utils.ts                            # Fonction cn() (clsx + tailwind-merge)
     constants.ts                        # Langages, couleurs tags, mapping Monaco
+    __tests__/
+      utils.test.ts                    # Tests cn() (4 tests)
     supabase/
       client.ts                         # Client Supabase navigateur
       server.ts                         # Client Supabase serveur
       proxy.ts                          # Middleware Supabase (gestion session + redirections)
       types.ts                          # Types generes Supabase (Database)
+      __tests__/
+        proxy.test.ts                  # Tests middleware session (7 tests)
     auth/
       actions.ts                        # Server Actions auth (login, signup, OAuth, logout)
+      __tests__/
+        actions.test.ts                # Tests Server Actions auth (11 tests)
+  test-utils/
+    react-query.tsx                    # Wrapper QueryClient pour tests
+    supabase-mock.ts                   # Factory mock Supabase
   providers/
     theme-provider.tsx                  # Provider next-themes
     query-provider.tsx                  # Provider React Query
@@ -154,6 +179,8 @@ src/
   package.json                          # Dependances et scripts
   tsconfig.json                         # Configuration TypeScript
   next.config.ts                        # Configuration Next.js (headers securite)
+  vitest.config.ts                      # Configuration Vitest (globals, jsdom, alias, setup)
+  vitest.setup.ts                       # Mocks globaux (Supabase, next/navigation, clipboard)
   postcss.config.mjs                    # Configuration PostCSS (@tailwindcss/postcss)
   components.json                       # Configuration shadcn/ui
   .env.example                          # Variables d'environnement requises

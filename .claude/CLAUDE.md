@@ -21,7 +21,30 @@ docs/
 ├── 08-ui-layout.md             # Sidebar, topbar, responsive, theming, CSS variables
 ├── 09-components.md            # Inventaire composants (ui/, layout/, snippets/), props
 ├── 10-state-management.md      # Zustand stores, React Query hooks, query keys, invalidation
-└── 11-constants.md             # Langages, couleurs tags, mappings Monaco, utilitaire cn()
+├── 11-constants.md             # Langages, couleurs tags, mappings Monaco, utilitaire cn()
+└── 12-testing.md               # Stack de test, conventions, patterns de mock, inventaire tests
+```
+
+## Regle fondamentale : Tests obligatoires
+
+**A chaque developpement** (nouvelle fonctionnalite, nouveau hook, nouveau store, nouvelle Server Action, correction de bug, refactoring), des tests unitaires **DOIVENT** etre ecrits ou mis a jour dans le dossier `__tests__/` adjacent au fichier concerne.
+
+### Regles de tests
+
+1. **Chaque nouveau fichier de logique** (hook, store, utilitaire, Server Action) DOIT avoir un fichier de test correspondant dans `__tests__/`
+2. **Chaque bug fix** DOIT inclure un test qui reproduit le bug corrige
+3. **Lancer `npm test`** a la fin de chaque developpement pour verifier que tous les tests passent
+4. **Utiliser les utilitaires existants** : `src/test-utils/react-query.tsx` (wrapper QueryClient) et `src/test-utils/supabase-mock.ts` (factory mock Supabase)
+5. **Conventions de mock** : les mocks globaux sont dans `vitest.setup.ts` (Supabase client singleton, next/navigation, clipboard). Les overrides specifiques se font dans chaque test via `vi.clearAllMocks()` + configuration locale
+6. **Mettre a jour `docs/12-testing.md`** quand un nouveau fichier de test est ajoute (inventaire des tests)
+
+### Placement des fichiers de test
+
+```
+src/lib/__tests__/utils.test.ts              # pour src/lib/utils.ts
+src/stores/__tests__/ui-store.test.ts        # pour src/stores/ui-store.ts
+src/hooks/__tests__/use-snippets.test.ts     # pour src/hooks/use-snippets.ts
+src/lib/auth/__tests__/actions.test.ts       # pour src/lib/auth/actions.ts
 ```
 
 ## Regles de documentation a respecter rigoureusement
@@ -81,6 +104,7 @@ Le fichier `00-overview.md` DOIT contenir l'arborescence complete et a jour de t
 | Modification auth | `04-auth.md` |
 | Modification CSS/theme | `08-ui-layout.md` |
 | Nouvelle fonctionnalite | Creer un nouveau fichier `XX-nom.md` si le domaine n'existe pas, sinon mettre a jour le fichier existant |
+| Nouveau test / modification tests | `12-testing.md` (inventaire) + `00-overview.md` (arborescence si nouveau fichier) |
 
 ## Ajout d'un nouveau domaine fonctionnel
 
